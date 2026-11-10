@@ -1,0 +1,5 @@
+BasedOnStyle: Google
+Language: Cpp
+IndentWidth: 2
+ColumnLimit: 88
+SortIncludes: CaseSensitive

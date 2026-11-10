@@ -1,0 +1,55 @@
+{
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
+  "configurePresets": [
+    {
+      "name": "wsl-base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "BUILD_TESTING": "ON",
+        "QUANTENGINE_BUILD_EXAMPLES": "ON"
+      }
+    },
+    {
+      "name": "wsl-debug",
+      "displayName": "Ubuntu / WSL Debug",
+      "description": "Ninja build with debug symbols for GDB and VS Code",
+      "inherits": "wsl-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "wsl-release",
+      "displayName": "Ubuntu / WSL Release",
+      "description": "Optimised Ninja build",
+      "inherits": "wsl-base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "wsl-debug", "configurePreset": "wsl-debug" },
+    { "name": "wsl-release", "configurePreset": "wsl-release" }
+  ],
+  "testPresets": [
+    {
+      "name": "wsl-debug",
+      "configurePreset": "wsl-debug",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "wsl-release",
+      "configurePreset": "wsl-release",
+      "output": { "outputOnFailure": true }
+    }
+  ]
+}
